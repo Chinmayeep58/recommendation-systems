@@ -1,0 +1,78 @@
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# ----------------------
+# Virtual Environment
+# ----------------------
+venv/
+env/
+ENV/
+.venv/
+
+# ----------------------
+# Jupyter Notebook
+# ----------------------
+.ipynb_checkpoints/
+
+# ----------------------
+# ML Models & Data
+# ----------------------
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.csv
+*.tsv
+*.zip
+*.tar.gz
+
+# Large dataset folders
+data/
+datasets/
+movie/
+images/
+myntradataset/
+
+# ----------------------
+# Images (optional)
+# ----------------------
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# ----------------------
+# Logs
+# ----------------------
+logs/
+*.log
+
+# ----------------------
+# IDE files
+# ----------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ----------------------
+# OS files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# Secrets
+# ----------------------
+.env
