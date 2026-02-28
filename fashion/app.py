@@ -128,12 +128,25 @@ if uploaded_file is not None:
     distances, indices = neighbors.kneighbors([features])
 
 
+    # show recommendations safely
     st.subheader("Recommended Images")
 
     cols = st.columns(5)
 
     for i in range(5):
 
-        img_path = os.path.join(BASE_DIR, filenames[indices[0][i+1]])
+        raw_path = filenames[indices[0][i+1]]
 
-        cols[i].image(img_path)
+        # fix Windows backslashes
+        raw_path = raw_path.replace("\\", "/")
+
+        # keep only filename
+        file_name = os.path.basename(raw_path)
+
+        # rebuild correct path
+        img_path = os.path.join(BASE_DIR, "images", file_name)
+
+        if os.path.exists(img_path):
+            cols[i].image(img_path)
+        else:
+            cols[i].write("Image not found")
