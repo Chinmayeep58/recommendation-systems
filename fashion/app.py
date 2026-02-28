@@ -11,23 +11,40 @@ from numpy.linalg import norm
 import streamlit as st
 
 
+# -------------------------
+# basic config
+# -------------------------
 st.set_page_config(page_title="Fashion Recommender", layout="wide")
 st.header("Fashion Recommendation System")
 
 
-# create upload folder
-if not os.path.exists("upload"):
-    os.makedirs("upload")
+# -------------------------
+# base directory (VERY IMPORTANT for Streamlit Cloud)
+# -------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-# cache model
+# -------------------------
+# create upload folder safely
+# -------------------------
+UPLOAD_DIR = os.path.join(BASE_DIR, "upload")
+
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR)
+
+
+# -------------------------
+# load model (cached)
+# -------------------------
 @st.cache_resource
 def load_model():
+
     base_model = ResNet50(
         weights="imagenet",
         include_top=False,
         input_shape=(224,224,3)
     )
+
     base_model.trainable = False
 
     model = tf.keras.Sequential([
@@ -38,12 +55,17 @@ def load_model():
     return model
 
 
-# cache features
+# -------------------------
+# load features safely (cached)
+# -------------------------
 @st.cache_resource
 def load_features():
 
-    Image_features = pkl.load(open("Images_features.pkl","rb"))
-    filenames = pkl.load(open("filenames.pkl","rb"))
+    features_path = os.path.join(BASE_DIR, "Images_features.pkl")
+    filenames_path = os.path.join(BASE_DIR, "filenames.pkl")
+
+    Image_features = pkl.load(open(features_path, "rb"))
+    filenames = pkl.load(open(filenames_path, "rb"))
 
     neighbors = NearestNeighbors(
         n_neighbors=6,
@@ -60,9 +82,13 @@ model = load_model()
 Image_features, filenames, neighbors = load_features()
 
 
-def extract_features(image_path, model):
+# -------------------------
+# feature extraction
+# -------------------------
+def extract_features(img_path, model):
 
-    img = image.load_img(image_path, target_size=(224,224))
+    img = image.load_img(img_path, target_size=(224,224))
+
     img_array = image.img_to_array(img)
 
     expanded = np.expand_dims(img_array, axis=0)
@@ -76,16 +102,22 @@ def extract_features(image_path, model):
     return normalized
 
 
-
-uploaded_file = st.file_uploader("Upload Image", type=["jpg","jpeg","png"])
+# -------------------------
+# upload UI
+# -------------------------
+uploaded_file = st.file_uploader(
+    "Upload Image",
+    type=["jpg", "jpeg", "png"]
+)
 
 
 if uploaded_file is not None:
 
-    file_path = os.path.join("upload", uploaded_file.name)
+    file_path = os.path.join(UPLOAD_DIR, uploaded_file.name)
 
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
+
 
     st.subheader("Uploaded Image")
     st.image(uploaded_file, width=250)
@@ -101,4 +133,7 @@ if uploaded_file is not None:
     cols = st.columns(5)
 
     for i in range(5):
-        cols[i].image(filenames[indices[0][i+1]])
+
+        img_path = os.path.join(BASE_DIR, filenames[indices[0][i+1]])
+
+        cols[i].image(img_path)
