@@ -5,70 +5,33 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.so
-*.egg-info/
-dist/
-build/
 
 # ----------------------
 # Virtual Environment
 # ----------------------
 venv/
 env/
-ENV/
 .venv/
 
 # ----------------------
-# Jupyter Notebook
+# Jupyter
 # ----------------------
 .ipynb_checkpoints/
 
 # ----------------------
-# ML Models & Data
-# ----------------------
-*.pkl
-*.joblib
-*.h5
-*.hdf5
-*.csv
-*.tsv
-*.zip
-*.tar.gz
-
-# Large dataset folders
-data/
-datasets/
-movie/
-images/
-myntradataset/
-upload/
-
-# ----------------------
-# Images (optional)
-# ----------------------
-*.png
-*.jpg
-*.jpeg
-*.gif
-
-# ----------------------
 # Logs
 # ----------------------
-logs/
 *.log
+logs/
 
 # ----------------------
-# IDE files
+# IDE
 # ----------------------
 .vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 
 # ----------------------
-# OS files
+# OS
 # ----------------------
 .DS_Store
 Thumbs.db
@@ -77,3 +40,8 @@ Thumbs.db
 # Secrets
 # ----------------------
 .env
+
+# ----------------------
+# Ignore ONLY temporary uploads
+# ----------------------
+upload/
