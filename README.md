@@ -337,6 +337,3 @@ Stanford Recommender Systems Course
 
 Google Machine Learning Guide
 [https://developers.google.com/machine-learning/recommendation](https://developers.google.com/machine-learning/recommendation)
-
-* architecture explanation
-* beginner diagrams explained in text.
