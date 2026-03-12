@@ -54,19 +54,12 @@ Key stages:
 # Project-Specific Architecture (Fashion Recommendation)
 
 Dataset Images
-↓
 Feature Extraction using ResNet50
-↓
 Feature Vector Generation
-↓
 Feature Storage (Pickle)
-↓
 User Uploads Image
-↓
 Extract Query Image Features
-↓
 Nearest Neighbor Search
-↓
 Return Top Similar Fashion Images
 
 The architecture follows the **same structure as a generic recommendation system**, but is specialized for **image-based fashion products**.
